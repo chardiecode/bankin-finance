@@ -14,26 +14,38 @@ export const RenderInput = <TFieldValues extends FieldValues>({
   name,
   label,
   placeholder,
+  type,
 }: {
   control: Control<TFieldValues>;
   name: FieldPath<TFieldValues>;
   label?: string;
   placeholder?: string;
+  type: string;
 }) => {
-  return (
-    <FormField
-      key={name}
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label ?? startCase(label)}</FormLabel>
-          <FormControl>
-            <Input placeholder={placeholder ?? `Enter ${name}`} {...field} />
-          </FormControl>
-          <FormMessage className="text-red-600" />
-        </FormItem>
-      )}
-    />
-  );
+  switch (type) {
+    case "text":
+    case "password":
+      return (
+        <FormField
+          control={control}
+          name={name}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{label ?? startCase(name)}</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={placeholder ?? `Enter ${name}`}
+                  type={type}
+                  {...field}
+                  autoComplete={
+                    type === "password" ? "current-password" : "off"
+                  }
+                />
+              </FormControl>
+              <FormMessage className="text-red-600 text-xs font-medium" />
+            </FormItem>
+          )}
+        />
+      );
+  }
 };

@@ -1,12 +1,6 @@
+import { Control, FieldValues } from "react-hook-form";
 import { RenderInput } from "@/components/common/CustomField";
-import { Control, FieldPath, FieldValues } from "react-hook-form";
-
-type FieldBase<TFieldValues extends FieldValues> = {
-  type: string;
-  name: FieldPath<TFieldValues>;
-  label?: string;
-  placeholder?: string;
-};
+import { FieldBase } from "@/types";
 
 export const renderField = <
   TFieldValues extends FieldValues,
@@ -18,17 +12,5 @@ export const renderField = <
   field: TField;
   control: Control<TFieldValues>;
 }) => {
-  switch (field.type) {
-    case "text":
-      return RenderInput({
-        control,
-        ...field,
-      });
-    default:
-      return undefined;
-  }
-};
-
-export default {
-  renderField,
+  return RenderInput({ control, ...field });
 };

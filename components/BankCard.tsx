@@ -1,4 +1,5 @@
 import { formatAmount } from "@/lib/utils";
+import { CreditCardProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 

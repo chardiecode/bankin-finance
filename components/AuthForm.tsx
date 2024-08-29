@@ -8,12 +8,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import formUtils from "@/lib/formUtils";
+import { renderField } from "@/lib/formUtils";
 import { authFormSchema, AuthenticationForm } from "@/lib/validationFormSchema";
 import { FieldArgs, FieldBase } from "@/types";
 
-const fieldOrder = ["email", "username"];
-export const fieldArgs: FieldArgs<AuthenticationForm> = {
+const fieldOrder = ["email", "username", "password"];
+const fieldArgs: FieldArgs<AuthenticationForm> = {
   email: {
     name: "email",
     type: "text",
@@ -21,6 +21,10 @@ export const fieldArgs: FieldArgs<AuthenticationForm> = {
   username: {
     name: "username",
     type: "text",
+  },
+  password: {
+    name: "password",
+    type: "password",
   },
 };
 
@@ -30,8 +34,9 @@ const AuthForm = ({ type }: { type: string }) => {
     defaultValues: {
       email: "",
       username: "",
+      password: "",
     },
-    mode: "onChange",
+    mode: "onTouched",
   });
 
   const [user, setUser] = useState(null);
@@ -69,7 +74,7 @@ const AuthForm = ({ type }: { type: string }) => {
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               {fieldOrder.map((name) => (
                 <Fragment key={name}>
-                  {formUtils.renderField<
+                  {renderField<
                     AuthenticationForm,
                     FieldBase<AuthenticationForm>
                   >({
@@ -78,7 +83,7 @@ const AuthForm = ({ type }: { type: string }) => {
                   })}
                 </Fragment>
               ))}
-              <Button type="submit" variant="outline">
+              <Button type="submit" variant="primary">
                 Submit
               </Button>
             </form>
