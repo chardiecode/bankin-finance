@@ -5,14 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import formUtils from "@/lib/formUtils";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import formUtils from "@/lib/formUtils";
 import { authFormSchema, AuthenticationForm } from "@/lib/validationFormSchema";
 
 const fieldOrder = ["email", "username"];
-const fieldArgs = {
+export const fieldArgs = {
   email: {
     name: "email",
     type: "text",
@@ -65,16 +65,16 @@ const AuthForm = ({ type }: { type: string }) => {
       ) : (
         <>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               {fieldOrder.map((name) => (
                 <Fragment key={name}>
                   {formUtils.renderField({
-                    field: fieldArgs[name as keyof AuthenticationForm],
                     form,
+                    field: fieldArgs[name as keyof AuthenticationForm],
                   })}
                 </Fragment>
               ))}
-              <Button variant="outline" type="submit">
+              <Button type="submit" variant="outline">
                 Submit
               </Button>
             </form>

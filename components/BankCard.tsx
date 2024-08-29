@@ -9,7 +9,7 @@ const BankCard = ({
 }: CreditCardProps) => {
   return (
     <div className="flex flex-col">
-      <Link href={"/"} className="bank-card">
+      <Link className="bank-card" href={"/"}>
         <div className="bank-card_content">
           <div>
             <h1 className="text-16 font-semibold text-white">
@@ -32,20 +32,20 @@ const BankCard = ({
           </article>
         </div>
         <div className="bank-card_icon">
-          <Image src={"/icons/Paypass.svg"} width={20} height={24} alt="Pay" />
+          <Image alt="Pay" height={24} src={"/icons/Paypass.svg"} width={20} />
           <Image
+            alt="Mastercard"
             className="ml-5"
+            height={32}
             src={"/icons/mastercard.svg"}
             width={45}
-            height={32}
-            alt="Mastercard"
           />
           <Image
+            alt="LInes"
             className="absolute top-0 left-0"
+            height={190}
             src={"/icons/Lines.svg"}
             width={316}
-            height={190}
-            alt="LInes"
           />
         </div>
       </Link>

@@ -1,3 +1,4 @@
+import { startCase } from "lodash";
 import {
   FormField,
   FormItem,
@@ -6,14 +7,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { startCase } from "lodash";
 
-export const renderInput = ({ form, name, label, placeholder }) => {
+export const RenderInput = ({ form, name, label, placeholder }) => {
   return (
     <FormField
+      key={name}
       control={form.control}
       name={name}
-      key={name}
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label ?? startCase(label)}</FormLabel>

@@ -1,9 +1,9 @@
-import { renderInput } from "@/components/common/TextInput";
+import { RenderInput } from "@/components/common/CustomField";
 
-const renderField = ({ field, form }: { field: any; form: any }) => {
+export const renderField = ({ field, form }: { field: any; form: any }) => {
   switch (field.type) {
     case "text":
-      return renderInput({ form, ...field });
+      return RenderInput({ form, ...field });
     default:
       return undefined;
   }
