@@ -1,31 +1,15 @@
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { renderInput } from "@/components/common/TextInput";
 
-function renderField({ control }: { control: any }) {
-  return (
-    <FormField
-      control={control}
-      name="email"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Email</FormLabel>
-          <FormControl>
-            <Input placeholder="Enter your email" {...field} />
-          </FormControl>
-          <FormMessage className="text-red-600" />
-        </FormItem>
-      )}
-    />
-  )
-}
+const renderField = ({ field, form }: { field: any; form: any }) => {
+  const { name, label, placeholder } = field;
+  switch (field.type) {
+    case "text":
+      return renderInput({ form, name: name, label, placeholder });
+    default:
+      return undefined;
+  }
+};
 
 export default {
-  renderField
-}
+  renderField,
+};
