@@ -10,9 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import formUtils from "@/lib/formUtils";
 import { authFormSchema, AuthenticationForm } from "@/lib/validationFormSchema";
+import { FieldArgs, FieldBase } from "@/types";
 
 const fieldOrder = ["email", "username"];
-export const fieldArgs = {
+export const fieldArgs: FieldArgs<AuthenticationForm> = {
   email: {
     name: "email",
     type: "text",
@@ -30,7 +31,7 @@ const AuthForm = ({ type }: { type: string }) => {
       email: "",
       username: "",
     },
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const [user, setUser] = useState(null);
@@ -68,8 +69,11 @@ const AuthForm = ({ type }: { type: string }) => {
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               {fieldOrder.map((name) => (
                 <Fragment key={name}>
-                  {formUtils.renderField({
-                    form,
+                  {formUtils.renderField<
+                    AuthenticationForm,
+                    FieldBase<AuthenticationForm>
+                  >({
+                    control: form.control,
                     field: fieldArgs[name as keyof AuthenticationForm],
                   })}
                 </Fragment>

@@ -1,11 +1,24 @@
 /* eslint-disable no-unused-vars */
 
+import { FieldPath, FieldValues } from "react-hook-form";
+
 declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // ========================================
+
+declare type FieldBase<TFieldValues extends FieldValues> = {
+  type: string;
+  name: FieldPath<TFieldValues>;
+  label?: string;
+  placeholder?: string;
+};
+
+declare type FieldArgs<TFieldValues extends FieldValues> = {
+  [K in keyof TFieldValues]: FieldBase<TFieldValues>;
+};
 
 declare type SignUpParams = {
   firstName: string;

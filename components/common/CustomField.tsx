@@ -7,12 +7,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Control, FieldPath, FieldValues } from "react-hook-form";
 
-export const RenderInput = ({ form, name, label, placeholder }) => {
+export const RenderInput = <TFieldValues extends FieldValues>({
+  control,
+  name,
+  label,
+  placeholder,
+}: {
+  control: Control<TFieldValues>;
+  name: FieldPath<TFieldValues>;
+  label?: string;
+  placeholder?: string;
+}) => {
   return (
     <FormField
       key={name}
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
