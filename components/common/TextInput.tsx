@@ -18,7 +18,7 @@ export const renderInput = ({ form, name, label, placeholder }) => {
         <FormItem>
           <FormLabel>{label ?? startCase(label)}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder ?? `Enter ${name} s`} {...field} />
+            <Input placeholder={placeholder ?? `Enter ${name}`} {...field} />
           </FormControl>
           <FormMessage className="text-red-600" />
         </FormItem>
