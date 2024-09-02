@@ -2,6 +2,7 @@
 
 import { sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
+import { SiderbarProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,8 +35,8 @@ const Sidebar = ({ user }: SiderbarProps) => {
                 <Image
                   fill
                   alt={item.label}
-                  src={item.imgURL}
                   className={cn({ "brightness-[3] invert-0": isActive })}
+                  src={item.imgURL}
                 />
               </div>
               <p

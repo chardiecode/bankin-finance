@@ -1,5 +1,6 @@
 "use client";
 
+import { DoughnutChartProps } from "@/types";
 import { Chart as ChartJS, ArcElement, Legend, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 

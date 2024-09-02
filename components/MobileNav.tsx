@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { MobileNavProps } from "@/types";
 
 const MobileNav = ({ user }: MobileNavProps) => {
   const pathname = usePathname();
@@ -44,7 +45,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
                     pathname === item.route ||
                     pathname.startsWith(`${item.route}/`);
                   return (
-                    <SheetClose asChild key={item.route}>
+                    <SheetClose key={item.route} asChild>
                       <Link
                         key={item.label}
                         className={cn("flex mobilenav-sheet_close w-full", {
@@ -55,12 +56,12 @@ const MobileNav = ({ user }: MobileNavProps) => {
                         <div className="relative size-6">
                           <Image
                             alt={item.label}
-                            width={20}
-                            height={20}
-                            src={item.imgURL}
                             className={cn({
                               "brightness-[3] invert-0": isActive,
                             })}
+                            height={20}
+                            src={item.imgURL}
+                            width={20}
                           />
                         </div>
                         <p
