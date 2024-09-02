@@ -15,12 +15,14 @@ export const RenderInput = <TFieldValues extends FieldValues>({
   label,
   placeholder,
   type,
+  className,
 }: {
   control: Control<TFieldValues>;
   name: FieldPath<TFieldValues>;
   label?: string;
   placeholder?: string;
   type: string;
+  className?: string;
 }) => {
   switch (type) {
     case "text":
@@ -30,8 +32,10 @@ export const RenderInput = <TFieldValues extends FieldValues>({
           control={control}
           name={name}
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>{label ?? startCase(name)}</FormLabel>
+            <FormItem className={className ?? "col-span-2"}>
+              <FormLabel className="text-[0.85rem]">
+                {label ?? startCase(name)}
+              </FormLabel>
               <FormControl>
                 <Input
                   placeholder={placeholder ?? `Enter ${name}`}
@@ -47,5 +51,7 @@ export const RenderInput = <TFieldValues extends FieldValues>({
           )}
         />
       );
+    default:
+      return undefined;
   }
 };

@@ -14,6 +14,7 @@ declare type FieldBase<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
   label?: string;
   placeholder?: string;
+  className?: string;
 };
 
 declare type FieldArgs<TFieldValues extends FieldValues> = {
