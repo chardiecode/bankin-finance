@@ -22,10 +22,12 @@ import {
 } from "@/lib/validationFormSchema";
 import { FieldBase } from "@/types";
 import { useRouter } from "next/navigation";
-import { signIn } from "@/lib/actions/user.actions";
+import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
+  // const loggedInUser = await getLoggedInUser();
+
   const isTypeSignIn: boolean = type === "sign-in";
   const extendedFieldOrder = isTypeSignIn ? signInFieldOrder : signUpFieldOrder;
   const extendedAuthSchema = isTypeSignIn ? authFormSchema : extendedSchema;
@@ -48,22 +50,23 @@ const AuthForm = ({ type }: { type: string }) => {
   const {
     control,
     handleSubmit,
-    formState: { isLoading, errors },
+    formState: { isSubmitting, errors },
   } = form;
 
   const [user, setUser] = useState(null);
 
   const onSubmit: SubmitHandler<AuthenticationForm> = async (data) => {
+    const { email, password } = data as keyof AuthenticationForm;
     try {
-      if (isTypeSignIn) {
+      if (type === "sign-in") {
         const response = await signIn({
-          email: data.email,
-          password: data.password,
+          email,
+          password,
         });
         if (response) router.push("/");
-      } else {
-        // SignUp
-        const newUser = await signUp(data);
+      }
+      if (type === "sign-up") {
+        const newUser = await signUp(data as keyof AuthenticationForm);
         setUser(newUser);
       }
     } catch (error) {}
@@ -71,6 +74,7 @@ const AuthForm = ({ type }: { type: string }) => {
   };
 
   console.error({ errors });
+  console.log(form.formState.isSubmitting);
   return (
     <section className="auth-form">
       <header className="flex flex-col gap-5 md:gap-8">
@@ -112,8 +116,8 @@ const AuthForm = ({ type }: { type: string }) => {
                 </Fragment>
               ))}
               <div className="grid col-span-2 gap-4 !mt-4">
-                <Button type="submit" variant="primary" disabled={isLoading}>
-                  {isLoading ? (
+                <Button type="submit" variant="primary" disabled={isSubmitting}>
+                  {isSubmitting ? (
                     <>
                       Submitting...
                       <Loader2 size={20} className="animate-spin ml-2" />
