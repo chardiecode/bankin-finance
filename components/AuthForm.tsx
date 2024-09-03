@@ -23,6 +23,7 @@ import {
 import { FieldBase } from "@/types";
 import { useRouter } from "next/navigation";
 import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLink from "./PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -72,8 +73,6 @@ const AuthForm = ({ type }: { type: string }) => {
     } catch (error) {}
     // You can also add any asynchronous operations here
   };
-
-  console.error({ errors });
   console.log(form.formState.isSubmitting);
   return (
     <section className="auth-form">
@@ -96,7 +95,9 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4 "></div>
+        <div className="flex flex-col gap-4 ">
+          <PlaidLink user={user} variant="primary" />
+        </div>
       ) : (
         <>
           <Form {...form}>
